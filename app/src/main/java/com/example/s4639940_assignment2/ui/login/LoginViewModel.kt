@@ -3,14 +3,14 @@ package com.example.s4639940_assignment2.ui.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.s4639940_assignment2.data.repo.MainRepository
+import com.example.s4639940_assignment2.data.remote.ServiceLocator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-// Holds the login state machine: Idle → Loading → Success/Error.
 class LoginViewModel(
-    // Injected by Koin
-    private val repo: MainRepository
+    //  default to the real repo so app works AND tests can call LoginViewModel()
+    private val repo: MainRepository = ServiceLocator.repo
 ) : ViewModel() {
 
     sealed class UiState {
@@ -36,13 +36,11 @@ class LoginViewModel(
         viewModelScope.launch {
             _state.value = UiState.Loading
             try {
-                android.util.Log.d("LOGIN_DEBUG", "Will send username='$firstname' password='$studentId'")
                 val key = repo.login(firstname, studentId)
                 _state.value = UiState.Success(key)
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 _state.value = UiState.Error("Login failed. Check name/ID and try again.")
             }
         }
     }
 }
-
