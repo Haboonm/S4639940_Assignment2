@@ -18,10 +18,10 @@ class DashboardViewModel : ViewModel() {
     val error: StateFlow<String?> = _error
 
     fun load(keypass: String) {
-        val header = "Bearer $keypass" // or plain key if your API says so
         viewModelScope.launch {
             try {
-                _items.value = repo.loadDashboard(header)
+                _items.value = repo.loadDashboard(keypass)   // <-- no "Bearer "
+                _error.value = null
             } catch (e: Exception) {
                 _error.value = e.message
             }

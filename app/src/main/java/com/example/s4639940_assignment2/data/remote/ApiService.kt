@@ -1,17 +1,19 @@
 package com.example.s4639940_assignment2.data.remote
 
-import com.example.s4639940_assignment2.data.model.DashboardItem
 import com.example.s4639940_assignment2.data.model.LoginRequest
 import com.example.s4639940_assignment2.data.model.LoginResponse
-import retrofit2.http.*
+import com.example.s4639940_assignment2.data.model.api.ApiDashboardResponse
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
-
 
     @POST("footscray/auth")
     suspend fun login(@Body body: LoginRequest): LoginResponse
 
-    // The spec says dashboard is /dashboard/{keypass}
+    // NOTE: API returns { "entities": [ ... ], "entityTotal": N }
     @GET("dashboard/{keypass}")
-    suspend fun getDashboard(@Path("keypass") keypass: String): List<DashboardItem>
+    suspend fun getDashboard(@Path("keypass") keypass: String): ApiDashboardResponse
 }

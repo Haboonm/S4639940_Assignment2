@@ -9,7 +9,10 @@ import retrofit2.HttpException
 class MainRepository(private val api: ApiService) {
 
     suspend fun login(firstname: String, studentId: String): String {
-        val body = LoginRequest(username = firstname.trim().lowercase(), password = studentId.trim())
+        val body = LoginRequest(
+            username = firstname.trim().lowercase(),
+            password = studentId.trim()
+        )
 
         return try {
             val res = api.login(body)
@@ -26,6 +29,28 @@ class MainRepository(private val api: ApiService) {
     }
 
     suspend fun loadDashboard(keypass: String): List<DashboardItem> {
-        return api.getDashboard(keypass)
+        Log.d("DASH_DEBUG", "Requesting dashboard for keypass='$keypass'")
+        val dto = api.getDashboard(keypass) // returns ApiDashboardResponse
+
+        // Map API shape (books) -> UI model (DashboardItem)
+        val items = dto.entities.map { book ->
+            val title = book.title.orEmpty()
+            val author = book.author.orEmpty()
+            val genre = book.genre.orEmpty()
+            val year = (book.publicationYear ?: 0).toString()
+            val desc = book.description.orEmpty()
+
+            DashboardItem(
+                id = "${title}_${author}".ifBlank { title.ifBlank { author } }.lowercase(),
+                title = title,                 // e.g., "To Kill a Mockingbird"
+                subtitle = author,             // e.g., "Harper Lee"
+                date = year,                   // e.g., "1960"
+                location = genre,              // e.g., "Fiction"
+                description = desc             // long description
+            )
+        }
+
+        Log.d("DASH_DEBUG", "Mapped ${items.size} items")
+        return items
     }
 }
