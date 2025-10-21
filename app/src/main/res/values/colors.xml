@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Primary & brand colors -->
+    <color name="colorPrimary">#F4A7B9</color>     <!-- soft rosy pink -->
+    <color name="colorOnPrimary">#FFFFFFFF</color> <!-- white text on pink -->
+    <color name="colorSecondary">#E2B18E</color>   <!-- beige accent -->
+    <color name="colorOnSecondary">#4A3F35</color> <!-- dark brown text on beige -->
+
+    <!-- Backgrounds -->
+    <color name="bg_cream">#FFF7E2</color>
+    <color name="bg_surface">#FFFFFF</color>       <!-- cards/surfaces -->
+
+    <!-- Text -->
+    <color name="text_primary">#4A3F35</color>     <!-- warm brown -->
+    <color name="text_muted">#9C8E80</color>       <!-- light brown / tan -->
+
+    <!-- Accent & dividers -->
+    <color name="colorAccent">#E2B18E</color>      <!-- peachy beige accent -->
+    <color name="divider">#FDE6D2</color>          <!-- light divider -->
+
+</resources>

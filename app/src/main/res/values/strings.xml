@@ -1,0 +1,45 @@
+<resources>
+
+    <!-- App & toolbar titles -->
+    <string name="app_name">Paw-radise</string>
+    <string name="home_toolbar">Home</string>
+    <string name="profile_toolbar">View Profile</string>
+
+    <!-- Home screen -->
+    <string name="home_title">Welcome to Paw-radise 🐾</string>
+    <string name="view_profile">View Profile</string>
+    <string name="your_pets">Your Pets</string>
+    <string name="owner_alex">Owner: Alex</string>
+
+    <!-- Pet names -->
+    <string name="luna">Luna</string>
+    <string name="max">Max</string>
+
+    <!-- Pet care info -->
+    <string name="luna_vaccination">Luna — Vaccination</string>
+    <string name="luna_vaccination_sub">12 Aug 2025 · Happy Paws Vet</string>
+    <string name="max_grooming">Max — Grooming</string>
+    <string name="max_grooming_sub">02 Sep 2025 · Fluffy Cuts</string>
+    <string name="care_history">Care History</string>
+
+    <!-- Content descriptions for accessibility -->
+    <string name="cd_pet_luna">Luna avatar</string>
+    <string name="cd_pet_max">Max avatar</string>
+
+    <!-- Login screen -->
+    <string name="login_title">Paw-radise</string>
+    <string name="login_tagline">Keep Luna &amp; Max on track</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="hint_email">name@example.com</string>
+    <string name="hint_password">••••••••</string>
+    <string name="enter_pawradise_cta">Enter Paw-radise</string>
+    <string name="cd_paw_hero">Cute paw illustration</string>
+
+    <!-- Simple error messages -->
+    <string name="err_email_required">Please enter your email</string>
+    <string name="err_password_required">Please enter your password</string>
+    <string name="title_activity_main">MainActivity</string>
+
+</resources>
+
