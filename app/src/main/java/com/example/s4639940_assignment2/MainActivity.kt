@@ -5,24 +5,25 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 
+// Hosts the NavHostFragment and wires the toolbar to Navigation.
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // 1) Use a real Toolbar as the ActionBar
+        // Use MaterialToolbar as the ActionBar (gives us screen titles + Up button).
         setSupportActionBar(findViewById(R.id.toolbar))
 
-        // 2) Get the NavController from the NavHostFragment instance (most reliable)
+        // Get NavController from the NavHostFragment in the layout.
         val navHost =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHost.navController
 
-        // 3) Hook up the ActionBar (this gives you the <- Up button automatically)
+        // Hook ActionBar to nav so the back arrow works automatically.
         setupActionBarWithNavController(navController)
     }
-
+    // Ensure the toolbar Up button actually navigates up in the graph.
     override fun onSupportNavigateUp(): Boolean {
         val navHost =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment

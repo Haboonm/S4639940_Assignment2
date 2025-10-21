@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -15,12 +14,13 @@ import com.example.s4639940_assignment2.R
 import com.example.s4639940_assignment2.databinding.FragmentLoginBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
     private val b get() = _binding!!
-    private val vm: LoginViewModel by viewModels()
+    private val vm: LoginViewModel by viewModel() // <-- Koin
 
     override fun onCreateView(inflater: LayoutInflater, c: ViewGroup?, s: Bundle?): View {
         _binding = FragmentLoginBinding.inflate(inflater, c, false)
@@ -31,7 +31,6 @@ class LoginFragment : Fragment() {
         b.btnEnter.setOnClickListener {
             val first = b.etFirstName.text?.toString()?.trim().orEmpty()
             val sid = b.etStudentId.text?.toString()?.trim().orEmpty()
-            // Clear old errors
             b.tilFirstName.error = null
             b.tilStudentId.error = null
             vm.login(first, sid)
@@ -44,7 +43,6 @@ class LoginFragment : Fragment() {
                         is LoginViewModel.UiState.Loading -> b.progressBar.isVisible = true
                         is LoginViewModel.UiState.Success -> {
                             b.progressBar.isVisible = false
-                            // Navigate with keypass
                             findNavController().navigate(
                                 R.id.action_login_to_dashboard,
                                 Bundle().apply { putString("keypass", st.keypass) }
@@ -52,7 +50,6 @@ class LoginFragment : Fragment() {
                         }
                         is LoginViewModel.UiState.Error -> {
                             b.progressBar.isVisible = false
-                            // Show error next to first field (and a helper on ID)
                             b.tilFirstName.error = st.message
                             if (st.message.contains("7")) {
                                 b.tilStudentId.error = "Enter your 7-digit student ID"
@@ -70,5 +67,6 @@ class LoginFragment : Fragment() {
         super.onDestroyView()
     }
 }
+
 
 

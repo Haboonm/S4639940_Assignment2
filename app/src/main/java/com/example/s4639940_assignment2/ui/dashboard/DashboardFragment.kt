@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -16,13 +15,13 @@ import com.example.s4639940_assignment2.data.model.DashboardItem
 import com.example.s4639940_assignment2.databinding.FragmentDashboardBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
     private val b get() = _binding!!
-    private val vm: DashboardViewModel by viewModels()
-
+    private val vm: DashboardViewModel by viewModel() // <-- Koin
 
     private val adapter = DashboardAdapter { item: DashboardItem ->
         findNavController().navigate(
@@ -41,16 +40,13 @@ class DashboardFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // Attach a LayoutManager
         b.rvList.layoutManager = LinearLayoutManager(requireContext())
         b.rvList.adapter = adapter
 
-        // Get keypass from LoginFragment args and load
         val key = arguments?.getString("keypass").orEmpty()
         android.util.Log.d("DASH_DEBUG", "Dashboard received keypass='$key'")
         if (key.isNotBlank()) vm.load(key)
 
-        // Collect items and submit to adapter
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 vm.items.collectLatest { items ->

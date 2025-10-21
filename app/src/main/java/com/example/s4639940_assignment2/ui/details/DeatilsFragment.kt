@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.s4639940_assignment2.data.model.DashboardItem
 import com.example.s4639940_assignment2.databinding.FragmentDetailsBinding
 
+// Screen that shows a single book’s details.
 class DetailsFragment : Fragment() {
     private var _binding: FragmentDetailsBinding? = null
     private val b get() = _binding!!
@@ -25,6 +26,7 @@ class DetailsFragment : Fragment() {
         // Set the title of the current screen
         requireActivity().title = "Book Details"
 
+        // Receive the clicked item that was passed from DashboardFragment.
         val item = if (android.os.Build.VERSION.SDK_INT >= 33) {
             requireArguments().getParcelable("item", DashboardItem::class.java)!!
         } else {
@@ -32,6 +34,7 @@ class DetailsFragment : Fragment() {
             requireArguments().getParcelable<DashboardItem>("item")!!
         }
 
+        // Bind fields to the layout.
         b.tvTitle.text = item.title
         b.tvSubtitle.text = item.subtitle
         b.tvMeta.text = "${item.date} • ${item.location}"

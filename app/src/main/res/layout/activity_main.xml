@@ -12,7 +12,7 @@
         android:layout_height="?attr/actionBarSize"
         android:title="Paw-radise" />
 
-    <!-- The ONE NavHostFragment for your Activity -->
+    <!-- The ONE NavHostFragment for the Activity -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"

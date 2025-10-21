@@ -8,12 +8,15 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 
+// Retrofit interface describing our HTTP API.
 interface ApiService {
 
+    // Auth endpoint: send firstName + studentId → receive keypass
     @POST("footscray/auth")
     suspend fun login(@Body body: LoginRequest): LoginResponse
 
     // NOTE: API returns { "entities": [ ... ], "entityTotal": N }
+    // Dashboard endpoint: returns wrapper { entities: [ApiBook], entityTotal: N }
     @GET("dashboard/{keypass}")
     suspend fun getDashboard(@Path("keypass") keypass: String): ApiDashboardResponse
 }
